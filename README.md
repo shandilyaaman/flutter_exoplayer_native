@@ -1,6 +1,7 @@
 # flutter_app_native
 
-A new Flutter application.
+A flutter application that use native android exoplayer to play video content. It has also implemented drm in exoplayer.
+You can pass drm license url along with video url if it has right protected content.
 
 ## Getting Started
 
