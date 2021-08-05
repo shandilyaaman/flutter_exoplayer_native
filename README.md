@@ -1,4 +1,4 @@
-# Flutter example using native Exoplayer with drm implemented
+# Exoplayer with DRM Implementation in Flutter android.
 
 A flutter application that use native android exoplayer to play video content. It has also implemented drm in exoplayer.
 You can pass drm license url along with video url if it has right protected content.
