@@ -5,6 +5,8 @@
 package videoplayer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import io.flutter.plugin.common.EventChannel;
 
@@ -36,7 +38,10 @@ final class QueuingEventSink implements EventChannel.EventSink {
 
   @Override
   public void error(String code, String message, Object details) {
-    enqueue(new ErrorEvent(code, message, details));
+    Map<String, Object> event = new HashMap<>();
+    event.put("event", "error");
+//    new ErrorEvent(code, message, details)
+    enqueue(event);
     maybeFlush();
   }
 

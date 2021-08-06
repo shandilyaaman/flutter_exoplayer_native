@@ -2,26 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_native/main.dart';
 import 'package:flutter_app_native/player/video_player.dart';
 
+import 'model/MediaItemModel.dart';
 import 'player/playerlifecycle.dart';
 import 'player/videowidget.dart';
 
 class PlayerScreen extends StatefulWidget {
-  final String _url;
-  final String _drmLicense;
+  final MediaItemModel _model;
 
-  const PlayerScreen(this._url, this._drmLicense);
+  const PlayerScreen(this._model);
 
   @override
   State<StatefulWidget> createState() {
-    return _PlayerScreenState(_url, _drmLicense);
+    return _PlayerScreenState(_model);
   }
 }
 
 class _PlayerScreenState extends State<PlayerScreen> {
-  final String _url;
-  final String _drmLicense;
+  final MediaItemModel _model;
 
-  _PlayerScreenState(this._url, this._drmLicense);
+  _PlayerScreenState(this._model);
 
   @override
   Widget build(BuildContext context) {
@@ -32,18 +31,21 @@ class _PlayerScreenState extends State<PlayerScreen> {
       body: Container(
         child: Column(
           children: [
+            Expanded(
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: NetworkPlayerLifeCycle(
+                  _model.url,
+                  _model.drmLicenseUrl,
+                  (BuildContext context, VideoPlayerController controller) =>
+                      AspectRatioVideo(controller),
+                ),
+              ),
+            ),
             Text(
-              "Playing url: $_url",
+              "Playing url: " + _model.url,
               style: TextStyle(color: Colors.blue, fontSize: 22),
             ),
-            Container(
-              child: NetworkPlayerLifeCycle(
-                _url,
-                _drmLicense,
-                (BuildContext context, VideoPlayerController controller) =>
-                    AspectRatioVideo(controller),
-              ),
-            )
           ],
         ),
       ),

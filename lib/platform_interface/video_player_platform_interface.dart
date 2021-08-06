@@ -272,6 +272,8 @@ enum VideoEventType {
   /// The video stopped to buffer.
   bufferingEnd,
 
+  error,
+
   /// An unknown event has been received.
   unknown,
 }

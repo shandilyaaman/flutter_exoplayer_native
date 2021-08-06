@@ -28,7 +28,7 @@ class _VideoPlayPauseState extends State<VideoPlayPause> {
   }
 
   FadeAnimation imageFadeAnim =
-  FadeAnimation(child: const Icon(Icons.play_arrow, size: 100.0));
+  FadeAnimation(child: const Icon(Icons.play_arrow, size: 100.0, color: Colors.white,));
   VoidCallback listener;
 
   VideoPlayerController get controller => widget.controller;
@@ -57,17 +57,20 @@ class _VideoPlayPauseState extends State<VideoPlayPause> {
       GestureDetector(
         child: VideoPlayer(controller),
         onTap: () {
+          if(controller.value.hasError) {
+            Text(controller.value.toString(), style: TextStyle(color: Colors.red, fontSize: 16),);
+          }
           if (!controller.value.initialized) {
             return;
           }
           if (controller.value.isPlaying) {
             imageFadeAnim =
-                FadeAnimation(child: const Icon(Icons.pause, size: 100.0));
+                FadeAnimation(child: const Icon(Icons.pause, size: 100.0, color: Colors.white));
             controller.pause();
           } else {
-            imageFadeAnim =
-                FadeAnimation(child: const Icon(Icons.play_arrow, size: 100.0));
             controller.play();
+            imageFadeAnim =
+                FadeAnimation(child: const Icon(Icons.play_arrow, size: 100.0, color: Colors.white));
           }
         },
       ),
@@ -76,13 +79,10 @@ class _VideoPlayPauseState extends State<VideoPlayPause> {
         child: VideoProgressIndicator(
           controller,
           allowScrubbing: true,
+          colors: VideoProgressColors(playedColor: Colors.red, backgroundColor: Colors.grey, bufferedColor: Colors.white),
         ),
       ),
       Center(child: imageFadeAnim),
-      Center(
-          child: controller.value.isBuffering
-              ? const CircularProgressIndicator()
-              : null),
     ];
 
     return Stack(
