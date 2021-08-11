@@ -1,7 +1,16 @@
-class MediaItemModel {
-  final String title;
-  final String url;
-  final String drmLicenseUrl;
+import 'package:flutter_app_native/model/Samples.dart';
 
-  const MediaItemModel(this.title, this.url, this.drmLicenseUrl);
+class MediaItemModel {
+  final String name;
+  final List<ItemModel> samples;
+
+  const MediaItemModel({this.name, this.samples});
+
+  factory MediaItemModel.fromJson(Map<String, dynamic> json) {
+    return MediaItemModel(
+        name: json['name'] as String,
+        samples: (json['samples'] as List)
+            .map((e) => ItemModel.fromJson(e))
+            .toList());
+  }
 }

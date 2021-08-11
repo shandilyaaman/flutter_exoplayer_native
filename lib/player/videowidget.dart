@@ -37,8 +37,9 @@ class AspectRatioVideoState extends State<AspectRatioVideo> {
   Widget build(BuildContext context) {
     if (initialized) {
       return AspectRatio(
-        // aspectRatio: controller.value.aspectRatio,
-        aspectRatio: 16 / 9,
+        aspectRatio: controller.value.aspectRatio > 0.0
+            ? controller.value.aspectRatio
+            : 16 / 9,
         child: Center(
           child: VideoPlayPause(controller),
         ),
