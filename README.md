@@ -5,7 +5,7 @@ You can pass drm license url along with video url if it has right protected cont
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Will update description soon.
 
 A few resources to get you started if this is your first Flutter project:
 
