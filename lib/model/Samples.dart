@@ -1,6 +1,6 @@
 import 'package:flutter_app_native/model/PlayList.dart';
 
-class ItemModel {
+class Sample {
   final String uri;
   final String drm_license_uri;
   final String name;
@@ -9,9 +9,10 @@ class ItemModel {
   final String subtitle_uri;
   final String subtitle_mime_type;
   final String subtitle_language;
+  final String extension;
   final List<PlayListModel> playlist;
 
-  const ItemModel(
+  const Sample(
       {this.uri,
       this.drm_license_uri,
       this.name,
@@ -20,11 +21,12 @@ class ItemModel {
       this.subtitle_uri,
       this.subtitle_mime_type,
       this.subtitle_language,
+      this.extension,
       this.playlist});
 
-  factory ItemModel.fromJson(Map<String, dynamic> json) {
+  factory Sample.fromJson(Map<String, dynamic> json) {
     var playListData = (json['playlist'] as List);
-    return ItemModel(
+    return Sample(
         uri: json['uri'] as String,
         drm_license_uri: json['drm_license_uri'] as String,
         name: json['name'] as String,
@@ -33,6 +35,7 @@ class ItemModel {
         subtitle_uri: json['subtitle_uri'] as String,
         subtitle_mime_type: json['subtitle_mime_type'] as String,
         subtitle_language: json['subtitle_language'] as String,
+        extension: json['extension'],
         playlist:
             playListData?.map((e) => PlayListModel.fromJson(e))?.toList());
   }

@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'video_player.dart';
 
 abstract class PlayerLifeCycle extends StatefulWidget {
-  PlayerLifeCycle(this.dataSource, this.licenseUrl, this.childBuilder);
+  PlayerLifeCycle(
+      this.dataSource, this.licenseUrl, this.extension, this.childBuilder);
 
   final VideoWidgetBuilder childBuilder;
   final String dataSource;
   final String licenseUrl;
+  final String extension;
 }
 
 typedef Widget VideoWidgetBuilder(
@@ -16,9 +18,9 @@ typedef Widget VideoWidgetBuilder(
 /// A widget connecting its life cycle to a [VideoPlayerController] using
 /// a data source from the network.
 class NetworkPlayerLifeCycle extends PlayerLifeCycle {
-  NetworkPlayerLifeCycle(
-      String dataSource, String licenseUrl, VideoWidgetBuilder childBuilder)
-      : super(dataSource, licenseUrl, childBuilder);
+  NetworkPlayerLifeCycle(String dataSource, String licenseUrl, String extension,
+      VideoWidgetBuilder childBuilder)
+      : super(dataSource, licenseUrl, extension, childBuilder);
 
   @override
   _NetworkPlayerLifeCycleState createState() => _NetworkPlayerLifeCycleState();
@@ -27,8 +29,14 @@ class NetworkPlayerLifeCycle extends PlayerLifeCycle {
 class _NetworkPlayerLifeCycleState extends _PlayerLifeCycleState {
   @override
   VideoPlayerController createVideoPlayerController() {
+    var formatHint;
+    if (widget.extension != null && widget.extension.isNotEmpty) {
+      if (widget.extension == 'mpd') {
+        formatHint = VideoFormat.dash;
+      }
+    }
     return VideoPlayerController.network(widget.dataSource,
-        licenseUrl: widget.licenseUrl);
+        formatHint: formatHint, licenseUrl: widget.licenseUrl);
   }
 }
 
@@ -36,6 +44,7 @@ abstract class _PlayerLifeCycleState extends State<PlayerLifeCycle> {
   VideoPlayerController controller;
 
   @override
+
   /// Subclasses should implement [createVideoPlayerController], which is used
   /// by this method.
   void initState() {

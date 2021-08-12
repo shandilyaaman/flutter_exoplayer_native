@@ -2,7 +2,7 @@ import 'package:flutter_app_native/model/Samples.dart';
 
 class MediaItemModel {
   final String name;
-  final List<ItemModel> samples;
+  final List<Sample> samples;
 
   const MediaItemModel({this.name, this.samples});
 
@@ -10,7 +10,7 @@ class MediaItemModel {
     return MediaItemModel(
         name: json['name'] as String,
         samples: (json['samples'] as List)
-            .map((e) => ItemModel.fromJson(e))
+            .map((e) => Sample.fromJson(e))
             .toList());
   }
 }

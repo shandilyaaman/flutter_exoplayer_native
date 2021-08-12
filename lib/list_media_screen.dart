@@ -69,9 +69,9 @@ class _MediaListState extends State<ListMediaScreen> {
     );
   }
 
-  _buildExpandableContent(List<ItemModel> list) {
+  _buildExpandableContent(List<Sample> list) {
     List<Widget> columnContent = [];
-    for (ItemModel content in list)
+    for (Sample content in list)
       columnContent.add(
         GestureDetector(
           onTap: () {
@@ -128,7 +128,7 @@ class _MediaListState extends State<ListMediaScreen> {
     return columnContent;
   }
 
-  _onListItemClick(ItemModel model) {
+  _onListItemClick(Sample model) {
     print(model.name);
     Navigator.push<PlayerScreen>(
       context,

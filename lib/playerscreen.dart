@@ -7,7 +7,7 @@ import 'player/playerlifecycle.dart';
 import 'player/videowidget.dart';
 
 class PlayerScreen extends StatefulWidget {
-  final ItemModel _model;
+  final Sample _model;
 
   const PlayerScreen(this._model);
 
@@ -18,7 +18,7 @@ class PlayerScreen extends StatefulWidget {
 }
 
 class _PlayerScreenState extends State<PlayerScreen> {
-  final ItemModel _model;
+  final Sample _model;
 
   _PlayerScreenState(this._model);
 
@@ -61,6 +61,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
         child: NetworkPlayerLifeCycle(
           _model.uri,
           _model.drm_license_uri,
+          _model.extension,
           (BuildContext context, VideoPlayerController controller) =>
               AspectRatioVideo(controller),
         ),
@@ -80,6 +81,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
             child: NetworkPlayerLifeCycle(
               _model.uri,
               _model.drm_license_uri,
+              _model.extension,
               (BuildContext context, VideoPlayerController controller) =>
                   AspectRatioVideo(controller),
             ),
